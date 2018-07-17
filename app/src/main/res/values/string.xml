@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QA Tools</string>
+    <string name="generBut">Copy String to Buffer</string>
+    <string name="messageToUser">Select type</string>
+    <string name="select_len">Select length</string>
+    <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="toast_fail">Nothing to copy</string>
+    <string name="toast_succ">String copied</string>
+</resources>

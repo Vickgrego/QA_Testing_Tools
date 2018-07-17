@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/tool_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/messageType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/select_opt"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/messageToUser"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/select_opt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@+id/messageType"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/messageLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/strLength"
+                android:layout_below="@+id/select_opt"
+                android:layout_margin="10dp"
+                android:text="@string/select_len"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/strLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/select_opt"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"
+                android:layout_toRightOf="@+id/messageLength"
+                android:ems="10"
+                android:inputType="number|numberSigned|numberDecimal|numberPassword|phone"
+                android:maxLength="3" />
+
+            <Button
+                android:id="@+id/generateBut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/strLength"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/generBut" />
+
+            <TextView
+                android:id="@+id/text_generated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/generateBut"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dp"
+                android:maxWidth="320sp"
+                android:text="String"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

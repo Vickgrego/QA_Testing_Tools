@@ -78,61 +78,61 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setGenerateString() {
-        runOnUiThread(new StringGeneratorThread());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtViewWithStr.setText(strGenerator.generateString(strGenerator.StringToInt(strLength.getText().toString()), opt));
+            }
+        });
     }
 
-    class StringGeneratorThread implements Runnable {
-
-        public void run() {
-            txtViewWithStr.setText(strGenerator.generateString(strGenerator.StringToInt(strLength.getText().toString()), opt));
-        }
-    }
 
     private void setButtonListener() {
-        this.copyButt.setOnClickListener(new CopyButListener());
+        this.copyButt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = txtViewWithStr.getText().toString();
+                if (text.equals("") || text.equals(StringGenerator.errorMessage)) {
+                    Toast.makeText(MainActivity.this.getApplicationContext(), R.string.toast_fail, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                clipManager.copyToClipboard(text);
+                Toast.makeText(MainActivity.this.getApplicationContext(), R.string.toast_succ, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    class CopyButListener implements OnClickListener {
-        public void onClick(View v) {
-            String text = txtViewWithStr.getText().toString();
-            if (text.equals("") || text.equals(StringGenerator.errorMessage)) {
-                Toast.makeText(MainActivity.this.getApplicationContext(), R.string.toast_fail, Toast.LENGTH_LONG).show();
-                return;
-            }
-            clipManager.copyToClipboard(text);
-            Toast.makeText(MainActivity.this.getApplicationContext(), R.string.toast_succ, Toast.LENGTH_LONG).show();
-        }
-    }
 
     private void setStrLengthListener() {
-        strLength.addTextChangedListener(new StrLengthListener());
+        strLength.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setGenerateString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
-    class StrLengthListener implements TextWatcher {
-
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            setGenerateString();
-        }
-
-        public void afterTextChanged(Editable s) {
-        }
-    }
 
     private void setSpinnerForOptSelection() {
         ArrayAdapter<String> SpinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, Arrays.asList(this.spinnerOptions));
         spinner.setAdapter(SpinnerAdapter);
-        spinner.setOnItemSelectedListener(new OptionSelectedListener());
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                optionSelected(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
     }
-    class OptionSelectedListener implements OnItemSelectedListener {
-        public void onItemSelected(AdapterView parent, View view, int position, long id) {
-            optionSelected(position);
-        }
-        public void onNothingSelected(AdapterView<?> adapterView) {
-        }
-    }
+
 
     private void optionSelected(int itemPosition) {
         newOpt = OPTIONS.values()[itemPosition];
